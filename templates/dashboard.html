@@ -1,0 +1,25 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+<section id="dg-app" aria-label="Dashboard y reportes administrativos">
+ <nav class="dg-tabs" aria-label="Secciones administrativas"><button type="button" data-dg-tab="dashboard" aria-pressed="true">Dashboard</button><button type="button" data-dg-tab="inventario" aria-pressed="false">Inventario</button><button type="button" data-dg-tab="reportes" aria-pressed="false">Reportes</button><button type="button" data-dg-tab="gestion" aria-pressed="false">Productos, recetas y usuarios</button></nav>
+ <p id="dg-alertas" class="dg-alert" role="status">Consultando alertas actuales…</p>
+ <section id="dg-dashboard" class="dg-section">
+  <header class="dg-heading"><div><span class="dg-kicker">VISIÓN GERENCIAL</span><h2>Resumen del restaurante</h2><p>Indicadores de ventas y estado operativo.</p></div><button id="dg-actualizar" type="button">Actualizar ↻</button></header>
+  <form id="dg-form" class="dg-filter"><label>Desde<input id="dg-desde" type="date" required min="1000-01-01" max="9999-12-30"></label><label>Hasta<input id="dg-hasta" type="date" required min="1000-01-01" max="9999-12-30"></label><button type="submit" class="dg-primary">Consultar período</button><button id="dg-hoy" type="button">Hoy</button></form>
+  <p id="dg-error" class="dg-error" role="alert" hidden></p><p id="dg-periodo" class="dg-muted" role="status">Consultando datos…</p>
+  <div id="dg-resultados" hidden>
+   <div id="dg-kpis" class="dg-kpis"></div>
+   <div class="dg-grid"><article class="dg-card"><h3>Evolución de ventas</h3><p class="dg-muted">Ingresos facturados · COP</p><div id="dg-ventas"></div></article><article class="dg-card"><h3>Distribución por método de pago</h3><p class="dg-muted">Ventas del período</p><div id="dg-pagos"></div></article></div>
+   <div class="dg-grid"><article class="dg-card"><h3>Platos más vendidos</h3><p class="dg-muted">Hasta 10 productos · unidades facturadas</p><div id="dg-productos"></div></article><article class="dg-card"><h3>Estado operativo actual</h3><p class="dg-muted">No depende del período histórico seleccionado.</p><div id="dg-operacion"></div></article></div>
+  </div>
+ </section>
+ <section id="dg-inventario" hidden>{% include 'inventario.html' %}</section>
+ <section id="dg-reportes" class="dg-section" hidden>
+  <header class="dg-heading"><div><span class="dg-kicker">ANÁLISIS HISTÓRICO</span><h2>Reportes analíticos</h2><p>Selecciona un informe y su rango de fechas.</p></div></header>
+  <form id="dg-reporte-form" class="dg-filter"><label>Tipo de informe<select id="dg-tipo"><option value="ventas">Ventas por período</option><option value="productos">Platos más vendidos</option><option value="consumo">Consumo de insumos</option><option value="cierre-caja">Cierre de caja</option></select></label><label>Desde<input id="dg-rdesde" type="date" required min="1000-01-01" max="9999-12-30"></label><label>Hasta<input id="dg-rhasta" type="date" required min="1000-01-01" max="9999-12-30"></label><button id="dg-generar" type="submit" class="dg-primary">Generar informe</button></form>
+  <p id="dg-rerror" class="dg-error" role="alert" hidden></p><p id="dg-rperiodo" class="dg-muted" role="status">Selecciona el período y genera un informe.</p>
+  <article class="dg-card" id="dg-reporte" hidden><h3 id="dg-rtitulo"></h3><div id="dg-rkpis" class="dg-kpis"></div><div id="dg-rgrafico"></div><div id="dg-rtabla" class="dg-table" tabindex="0" aria-label="Datos del informe"></div><p id="dg-rnota" class="dg-muted"></p></article>
+  <div class="ge-export"><button type="button" id="dg-pdf" disabled>Exportar a PDF</button><button type="button" id="dg-xlsx" disabled>Exportar a Excel</button><p class="dg-muted">Se descarga el período del último informe generado correctamente. Se vuelve a consultar la base de datos al descargar.</p><p id="dg-export-msg" role="status" class="dg-muted"></p></div>
+ </section>
+ <section id="dg-gestion" hidden>{% include 'gestion.html' %}</section>
+</section>
+<script defer src="{{ url_for('static', filename='js/dashboard.js') }}"></script>

@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block titulo %}Mirador Bumangués | L&D{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/ld.css') }}">
+<script defer src="{{ url_for('static', filename='js/interfaz.js') }}"></script>
+</head>
+<body data-pagina="{% block pagina %}{% endblock %}" data-panel="{{ url_for('interfaz.panel') }}" data-login="{{ url_for('interfaz.login') }}">
+{% block contenido %}{% endblock %}
+</body></html>

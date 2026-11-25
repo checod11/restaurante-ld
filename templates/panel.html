@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block titulo %}{{ modulos[actual].titulo if actual else 'Seleccionar módulo' }} | Mirador Bumangués{% endblock %}
+{% block pagina %}panel{% endblock %}
+{% block contenido %}
+<header class="topbar">{% include 'marca.html' %}<div class="usuario"><div><strong>{{ empleado.nombre_empleado }}</strong><small>{{ empleado.roles|join(' · ') }}</small></div><button id="cerrar-sesion" class="btn btn-salir">Cerrar sesión</button></div></header>
+<div class="app-layout{% if actual == 'salon' %} salon-layout{% elif actual == 'cocina' %} cocina-layout{% elif actual == 'caja' %} caja-layout{% elif actual == 'administracion' %} inventario-layout{% endif %}">
+<aside class="sidebar"><div class="side-label">ESPACIO DE TRABAJO</div><nav aria-label="Módulos autorizados">{% for clave, m in modulos.items() if clave in empleado.modulos %}<a href="{{ url_for('interfaz.modulo', nombre=clave) }}" {% if actual==clave %}aria-current="page" class="activo"{% endif %}><span>{{ m.icono }}</span>{{ m.titulo }}</a>{% endfor %}</nav><div class="side-foot">L&D Company<br><small>Versión académica · L&D</small></div></aside>
+<main class="workspace"><p id="mensaje" role="alert" class="mensaje" hidden></p><span class="eyebrow muted">RESTAURANTE MIRADOR BUMANGUÉS / {{ modulos[actual].rol|upper if actual else 'MÓDULOS' }}</span><h1>{{ modulos[actual].titulo if actual else 'Selecciona tu módulo' }}</h1><p class="muted">Bienvenido al sistema, {{ empleado.nombre_empleado }}.</p>
+{% if actual == 'salon' %}{% include 'salon.html' %}
+{% elif actual == 'cocina' %}{% include 'cocina.html' %}
+{% elif actual == 'caja' %}{% include 'caja.html' %}
+{% elif actual == 'administracion' %}{% include 'dashboard.html' %}
+{% elif actual %}<section class="hero-panel"><span class="eyebrow">ACCESO AUTORIZADO</span><h2>{{ modulos[actual].descripcion }}</h2><p>Tu sesión está activa. Esta es la base visual del módulo; las herramientas operativas se incorporarán en la etapa {{ modulos[actual].etapa }}.</p></section><div class="section-title">Funciones previstas</div><div class="funciones">{% for f in modulos[actual].funciones %}<article class="funcion"><span class="numero">0{{ loop.index }}</span><h3>{{ f }}</h3><small>Pendiente de interfaz</small></article>{% endfor %}</div>
+{% else %}<div class="funciones">{% for clave,m in modulos.items() if clave in empleado.modulos %}<a class="funcion enlace" href="{{ url_for('interfaz.modulo', nombre=clave) }}"><span class="numero">{{ m.icono }}</span><h3>{{ m.titulo }}</h3><p>{{ m.descripcion }}</p><small>Abrir módulo →</small></a>{% endfor %}</div>{% endif %}
+</main></div>
+{% endblock %}

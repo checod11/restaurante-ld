@@ -1,0 +1,19 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cocina.css') }}">
+<section id="cocina-app" data-empleado="{{ empleado.id_empleado|default('') }}" aria-label="Gestor de comandas">
+  <div class="ck-toolbar">
+    <div><span class="ck-kicker">SERVICIO EN CURSO</span><h2>Tablero de comandas</h2><p>Organiza la preparación y comunica a salón cuándo están listos los platos.</p></div>
+    <div class="ck-controls"><span id="cocina-conexion" role="status" class="ck-connection">Conectando…</span><button type="button" class="ck-secondary" id="cocina-actualizar">↻ Actualizar</button></div>
+  </div>
+  <p id="cocina-aviso" class="ck-notice" role="status" aria-live="polite" hidden></p>
+  <div id="cocina-error" class="ck-error" role="alert" hidden></div>
+  <div class="ck-board" id="cocina-tablero" aria-label="Comandas por estado" aria-busy="true">
+    {% for estado, titulo, clase, subtitulo in [('Tomado','Nuevas comandas','nuevas','Pendientes de aceptar'),('Preparacion','En preparación','preparacion','Órdenes en cocina'),('Lista','Listas para entregar','listas','Esperando al mesero')] %}
+    <section class="ck-column ck-{{ clase }}" aria-labelledby="ck-titulo-{{ estado }}">
+      <header class="ck-column-head"><div><h3 id="ck-titulo-{{ estado }}">{{ titulo }}</h3><p>{{ subtitulo }}</p></div><span class="ck-count" id="cocina-contador-{{ estado }}">—</span></header>
+      <div id="cocina-{{ estado }}" class="ck-cards"><p class="ck-empty">Consultando comandas…</p></div>
+    </section>
+    {% endfor %}
+  </div>
+  <footer class="ck-footer"><span id="cocina-ultima">Aún no se han recibido datos.</span><span>Actualización cada 4 segundos mientras la pestaña esté visible.</span></footer>
+</section>
+<script defer src="{{ url_for('static', filename='js/cocina.js') }}"></script>

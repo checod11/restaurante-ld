@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block titulo %}Iniciar sesión | Mirador Bumangués{% endblock %}
+{% block pagina %}login{% endblock %}
+{% block contenido %}
+<main class="acceso">
+  <section class="identidad">
+    {% include 'marca.html' %}
+    <div class="identidad-centro"><span class="eyebrow">GESTIÓN RESTAURANTE</span><h1>El servicio empieza<br> con un equipo<br><em> conectado.</em></h1><p>Salón, cocina, caja y administración en un solo lugar.</p><div class="pasos"><span>01 Salón</span><span>02 Cocina</span><span>03 Caja</span><span>04 Gestión</span></div></div>
+    <div class="identidad-pie">L&D Company <span>•</span> Bucaramanga, Santander</div>
+  </section>
+  <section class="acceso-form"><div class="form-inner">
+    <span class="eyebrow muted">PORTAL DE EMPLEADOS</span><h2>Iniciar sesión</h2><p class="muted intro">Ingresa con tus credenciales personales para acceder a tu módulo de trabajo.</p>
+    <form id="login-form" method="post" action="/api/auth/login">
+      <div class="mb-3"><label class="form-label" for="usuario">Usuario</label><input class="form-control" id="usuario" name="usuario" autocomplete="username" maxlength="50" placeholder="Tu usuario" required></div>
+      <div class="mb-3"><label class="form-label" for="contrasena">Contraseña</label><div class="input-group"><input class="form-control" id="contrasena" name="contrasena" type="password" autocomplete="current-password" maxlength="256" placeholder="Tu contraseña" required><button type="button" class="btn btn-outline-secondary" id="ver-clave" aria-pressed="false">Mostrar</button></div></div>
+      <p id="mensaje" class="mensaje" role="alert" hidden></p>
+      <button class="btn btn-ld w-100" type="submit" id="ingresar">Ingresar <span aria-hidden="true">→</span></button>
+    </form>
+    <noscript><p class="mensaje">Activa JavaScript para iniciar sesión.</p></noscript>
+    <div class="acceso-nota"><span class="punto"></span> Acceso interno · MVP académico</div>
+    <p class="ayuda muted">¿Problemas para ingresar? Comunícate con el administrador del sistema.</p>
+  </div><footer>Software Administrador de Restaurantes L&D · v1.0</footer></section>
+</main>
+{% endblock %}

@@ -1,0 +1,4 @@
+{% extends 'base.html' %}
+{% block titulo %}Acceso | Mirador Bumangués{% endblock %}
+{% block pagina %}error{% endblock %}
+{% block contenido %}<main class="error-page"><section class="error-card"><span class="eyebrow muted">MIRADOR BUMANGUÉS · {{ estado }}</span><h1>{% if estado==403 %}Acceso no autorizado{% elif estado==404 %}Página no encontrada{% else %}Servicio no disponible{% endif %}</h1><p>{% if estado==403 %}Tu cuenta no tiene permiso para acceder a este módulo.{% elif estado==404 %}La dirección solicitada no existe.{% else %}Comprueba que MariaDB esté funcionando e inténtalo nuevamente.{% endif %}</p><a class="btn btn-ld" href="{{ url_for('interfaz.login') }}">Volver al acceso</a><p id="mensaje" role="alert" class="mensaje" hidden></p><button id="cerrar-sesion" class="btn btn-outline-secondary mt-3">Cerrar sesión</button></section></main>{% endblock %}
